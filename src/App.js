@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import AddInfo from "./components/Addinfo";
+import Search from "./components/Search";
 import './App.css';
-
+import { useCallback, useEffect, useState } from "react";
 function App() {
+ const [list,setList] = useState([]);
+
+ const Data = useCallback(
+  () =>{
+    fetch('./data.json')
+    .then(response => response.json())
+    .then(data => setList(data))
+  },[])
+
+  useEffect(Data,[Data])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="box">
+      <Search />
+      <div id="list">
+        <ul>
+          {list.map((listItem) => (
+          <AddInfo
+            key={listItem.id}
+            listItem = {listItem} />))}
+    
+        </ul>
+      </div>
     </div>
   );
 }
