@@ -1,6 +1,6 @@
 import {BiTrash} from 'react-icons/bi'
 
-export default function AddInfo({listItem}){
+export default function AddInfo({listItem,onDelete}){
   return (
     <li>
       <dl>
@@ -12,7 +12,11 @@ export default function AddInfo({listItem}){
         <dd>{listItem.aptNotes}</dd>
         <dd>{listItem.aptDate}</dd>
       </dl>
-      <button type="text"><BiTrash /></button>
+      <button 
+        type="text"
+        onClick = {() => onDelete(listItem.id)}>
+        <BiTrash />
+        </button>
       </li>
   );
 }
